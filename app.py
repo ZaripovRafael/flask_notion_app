@@ -1,22 +1,21 @@
-from flask import Flask, jsonify
+from flask import Flask, render_template, url_for
 
 
 app = Flask(__name__)
 
 
+menu = ['Группы', 'Чаты', 'Профиль']
+
+
 @app.route('/')
 async def index():
-    return jsonify({'msg': 'Success'})
+    print(url_for('index'))
+    return render_template('index.html', title='NotNotion', menu=menu)
 
 
-@app.route('/notnotion/api/v0/profile/<int:user_id>', methods=['GET'])
-async def profile(user_id):
-    return jsonify(
-        {
-            'profile': 'User',
-            'user_id': user_id
-        }
-    )
+@app.route('/about')
+async def about():
+    return render_template('about.html', title='О сервисе')
 
 
 if __name__ == '__main__':
